@@ -1,0 +1,90 @@
+\begin{figure}[h/t/b/p] %two figures
+    \begin{minipage}{0.6\linewidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{Image/1_phasor.png}
+        \caption{Phasor}
+        \label{phasor}
+    \end{minipage}
+    \begin{minipage}{0.4\linewidth}
+        \centering
+        \includegraphics[width=0.85\textwidth]{Image/1_plane_wave.png}
+        \caption{Visualization of plane wave}
+        \label{plane_wave}
+    \end{minipage}
+\end{figure}
+
+
+%usual heads
+\documentclass[12pt]{ctexart}%中文包
+\usepackage{graphicx}%图片引用包
+\usepackage{amssymb}%特殊符号
+\usepackage{amsmath,amsfonts,bm}%矩阵
+\usepackage{amsthm}%定理
+\usepackage{geometry}%缩放
+\usepackage{hyperref}%超链接
+\usepackage{framed}%框框
+\usepackage{color}%颜色
+\usepackage{mathrsfs}%花体
+\usepackage{anyfontsize}
+\usepackage{indentfirst}%缩进
+\usepackage{extsizes}%size
+\usepackage{newtxtext,newtxmath}%times风格字体
+\usepackage{mdframed}%边栏
+
+
+\surroundwithmdframed[
+  linecolor=black,
+  linewidth=1pt,
+  innerleftmargin=10pt,
+  innerrightmargin=10pt,
+  innertopmargin=0pt,
+  innerbottommargin=10pt
+]{thm}
+\surroundwithmdframed[
+  linecolor=gray,
+  topline=false,
+  bottomline=false,
+  rightline=false,
+  linewidth=4pt,
+  innerleftmargin=10pt,
+  innerrightmargin=10pt,
+  innertopmargin=0pt,
+  innerbottommargin=5pt
+]{df}
+\surroundwithmdframed[
+  linecolor=black,
+  linewidth=1pt,
+  innerleftmargin=10pt,
+  innerrightmargin=10pt,
+  innertopmargin=0pt,
+  innerbottommargin=10pt
+]{psn}
+
+\newcommand\R {\mathbb{R}}%简写
+\newcommand\E {\mathbb{E}}
+\newcommand\Pd {\mathbb{P}}
+
+\setlength{\parindent}{2em}%缩进参数
+\linespread{1.5}%行间距
+\geometry{a4paper,scale=0.75}%大小
+\newtheorem{thm}{Theorem}%定理环境
+\newtheorem{df}{Definition}
+\newtheorem{psn}[thm]{Proposition}
+
+\hypersetup
+    {
+        hypertex=true,
+        colorlinks=true,
+        linkcolor=blue,
+        anchorcolor=blue,
+        citecolor=blue
+    }%超链接
+
+\title{Statistic Models and Estimation\\统计模型和估计}
+\author{Jerry Ling} 
+\date{\today}
+ 
+
+
+\begin{document}  %begin后括号内是文件类型
+\maketitle  %生成标题
