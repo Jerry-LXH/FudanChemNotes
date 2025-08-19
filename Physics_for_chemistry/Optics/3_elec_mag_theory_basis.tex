@@ -52,7 +52,7 @@
     }
 
 
-\title{Basic Electrodynamic Aspects\\电磁理论基础}
+\title{Electrodynamic Landscape of Light\\电磁理论视角下的光学图景}
 
 \author{Jerry Ling} 
 
@@ -60,7 +60,153 @@
  
 \begin{document}  %begin后括号内是文件类型
 \maketitle  %生成标题
-上一篇笔记中讨论了在近轴近似下的几何光学原理和方法。尽管使用广泛，几何光学无法满意地处理界面处光的行为，包括折射、反射、偏振、衍射等问题。本篇笔记将梳理单色光的经典电动力学理论，并简要解释色散模型，以为之后对干涉、衍射的进一步处理打下基础。
-\section*{电磁波、辐射和能量}
+前两篇笔记中讨论了简单的物理光学和几何光学。本篇笔记将从Maxwell方程作为第一性原理，从头导出全波动光学、物理光学和几何光学的图景。同时将较详细地处理折射、反射、偏振等问题。
+
+\section*{电磁波理论}
+经典电磁理论中，电和磁可描述为三维空间中的矢量场。高斯制下，其满足4个微分方程：
+
+\begin{theorem}[Maxwell's Equation]\label{Maxwell}
+    \begin{align}
+        \textup{curl H} - \frac{1}{c}\dot{\textbf{D}}&=\frac{4\pi}{c}\textbf{j}
+            \label{one} \\
+            \textup{curl E} + \frac{1}{c}\dot{\textbf{B}}&= 0
+            \label{two} \\
+            \textup{div D}&=4\pi \rho
+            \label{three} \\
+            \textup{div B}&=0
+            \label{four} 
+    \end{align}
+\end{theorem}
+
+\noindent 可以表述为：变化的电位移产生涡旋的磁场，变化的磁感应产生涡旋的电场；电位移有源，磁感应无源。电位移和磁感应强度是介质中的“有效”场，所以在方程中作为动力的一项中都取有效场，作为输出的一项都取正常场。其由本构方程联系:
+\begin{equation}
+    \begin{aligned}
+        \textbf{j} &= \sigma \textbf{E}\\
+        \textbf{D} &= \epsilon \textbf{E}\\
+        \textbf{B} &= \mu \textbf{H}\\
+    \end{aligned}
+    \label{material equ}
+\end{equation}
+由(\ref{one})取散度得\textbf{连续性方程}:
+\begin{equation}
+    \textup{div } \textbf{j} = - \partial_t{\rho}
+\end{equation}
+再对一个围面积分得\textbf{高斯定理}(增加电荷等于流入电荷):
+\begin{equation}
+    \partial_t \int{\rho}\textup{ dV} = -\int \textbf{j} \cdot \textbf{n} \textup{ dS} 
+\end{equation}
+这些方程基本上完全描述了电磁的行为，接下来要做的就只是一些矢量分析和近似。
+\subsection*{能量}
+首先引入矢量分析中的恒等式:
+\begin{equation}
+    \textbf{E}\cdot\textup{curl }\textbf{H}-\textbf{H}\cdot\textup{curl }\textbf{E} = -\textup{div}(\textbf{E}\times\textbf{H})
+\end{equation}
+由式(\ref{one})(\ref{two})进行两边取点积操作，不难得到:
+\begin{equation}
+    \frac{1}{c}(\textbf{E}\cdot\dot{\textbf{D}}+\textbf{H}\cdot\dot{\textbf{B}}) + \frac{4\pi}{c}\textbf{j}\cdot\textbf{E} + \textup{div}(\textbf{E}\times\textbf{H})= 0
+\end{equation}
+注意到每一项都变成\textbf{标量场}。其中电场和磁场的自点积可以理解为场的\textbf{能量密度}，于是第一项就是能量密度的变化率，第二项可以分解为焦耳热和场对电荷做的功，最后一项则代表流出的能量。这也是功-能量守恒的结果。对任一体积积分获得能量守恒方程：
+\begin{equation}
+    \frac{\mathrm{d}\textup{W}}{\mathrm{d}t}=-\frac{\delta \textup{A}}{\delta t}-\textup{Q}-\int \textbf{S}\cdot\textbf{n}\textup{ dS}
+\end{equation}
+当不存在电荷和电流做功时候，能量变化即流出的项。高斯制下能量密度、\textbf{能流密度}可如下定义：
+\begin{align}
+    w_e =\frac{1}{8\pi}\textbf{E}\cdot \textbf{D} & \ \ \ \ \
+    w_m =\frac{1}{8\pi}\textbf{H}\cdot\textbf{B} \\
+    \textbf{S}= & \frac{c}{4\pi}\textbf{E}\times\textbf{H}
+\end{align}
+\subsection*{波动方程}
+对(\ref{one})(\ref{two})作一些处理，将所有场量换成原场(E和H)，并令电流、电荷为0:
+\begin{equation}
+    \begin{aligned}
+        \frac{1}{\mu}\textup{curl }\textbf{E} + \frac{1}{c}\dot{\textbf{H}} &=0\\
+        \textup{curl }\textbf{H} - \frac{\epsilon}{c}\textup{curl }\dot{\textbf{E}} &=0
+    \end{aligned}
+\end{equation}
+显然我们可以通过一些操作消掉其中一个场，注意物性标量是坐标的函数，并使用恒等式:
+\begin{equation}
+    \textup{curl }u\textbf{v} = u\textup{ curl }\textbf{v}+(\nabla u)\times\textbf{v}
+\end{equation}
+\begin{equation}
+    \nabla\times(\nabla\times\textbf{v})=\nabla(\nabla\cdot\textbf{v})-\nabla^2\textbf{v}
+\end{equation}
+经过计算得到普遍的波动方程:
+\begin{equation}
+    \nabla^2\textbf{E}-\frac{\epsilon\mu}{c^2}\ddot{\textbf{E}}+(\nabla \ln \mu)\times\textup{curl }\textbf{E}+\nabla(\textbf{E}\cdot\nabla \ln \epsilon) = 0
+\end{equation}
+在媒质均匀的情况下，上式简化为二阶齐次偏微分方程：
+\begin{framed}
+    \begin{equation}
+        \nabla^2\textbf{E}-\frac{\epsilon\mu}{c^2}\ddot{\textbf{E}} = 0
+        \label{waveequ}
+    \end{equation}
+    \begin{equation}
+        \nabla^2\textbf{H}-\frac{\epsilon\mu}{c^2}\ddot{\textbf{H}} = 0
+    \end{equation}
+\end{framed}
+\begin{note}[Condition of Scalar Approximation]
+    所有的麻烦源于不均匀的媒介——也就是常见的孔径边沿处。在距离边沿几个波长的区域内，电场和磁场及他们的各个分量之间产生[耦合]，光波与边沿介质相互作用，于是破坏了各个分量的独立性。不过，当我们只考虑大孔径、或者小的衍射角的时候，这些边沿行为就可以忽略不计（孔径尺寸远大于波长）。在大部分我们感兴趣的问题中，这个条件是很容易满足的。
+\end{note}
+\subsection*{标量波和亥姆霍兹方程}
+注意到在式(\ref{waveequ})中各个矢量的分量相互独立，而又可以证明磁场总是和电场垂直，因而，不妨用一个单一的标量\textup{V(x,y,z,t)}来代替这两个矢量偏微分方程:
+\begin{equation}
+    \nabla^2\textup{V}-\frac{\epsilon\mu}{c^2}\frac{\partial{\textup{V}}}{\partial t} = 0
+    \label{scalar}
+\end{equation}
+这就是我们在第一章中使用的三维空间中的波动方程。规定不同的对称性给出不同的特解，如平移对称性-平面波；球对称-球面波；柱对称-柱面波。
+\begin{equation}
+    \textup{V} = \textup{V}_1(\textbf{r}\cdot\textbf{k}-vt)+\textup{V}_2(\textbf{r}\cdot\textbf{k}+vt)
+\end{equation}
+\par 注意上式对波形尚未规定，是方程的通解。鉴于单色光的重要性，我们常研究每一点都\textbf{随时间周期变化}的场，其标量波称为\textbf{时谐波函数}，可以如下表示:
+\begin{equation}
+    \textup{V}(x,y,z,t)=\textup{a}(x,y,z)\cos (\omega t-g(x,y,z))
+\end{equation}
+其中唯一的含时量由角频率$\omega$规定，cos内含时的部分规定了周期中的位置，也就是第一章中定义的\textbf{相位}。标量函数g则代表“初始”相位情况。
+\par 一个方便的做法是把这个不含时的初始相位折算进振幅分布\textup{A}中，只需用e复指数代替cos表示相位即可:
+\begin{equation}
+    \textup{V}(x,y,z,t)=\mathbb{R}\textup{e}\{\textup{U}(x,y,z)\exp (i \omega t)\}, \ \ \textup{U}(x,y,z) = \textup{a}(x,y,z)\exp\{ig(x,y,z)\} \in \mathbb{C}
+    \label{complex amp}
+\end{equation}
+这样一来，对某个角频率的波，\textbf{复振幅}\textup{U}$(x,y,x)$就完全规定了波函数。将式(\ref{complex amp})代回式(\ref{scalar})，则得到复振幅\textup{U}应满足的方程，一个不含时的二阶齐次偏微分方程:
+\begin{theorem}[Helmholtz's Equation]\label{Helmholtz}
+    \[\nabla^2 \textup{U} + k^2 \textup{U}=0, \ \ k = \frac{\omega}{v}\]
+\end{theorem}
+这个方程是\textbf{标量衍射理论}的基本方程，而时谐波函数和相位的概念则是\textbf{干涉理论}的基本概念。
+\subsection*{标量波的相速度和群速度}
+显然，\textbf{相速度}$v^{(p)}$只在相位良定义的波有意义。在时谐波中，相速度即等相面前进的速度，可用角频率和相位梯度之比求出:
+\begin{equation}
+    v^{(p)}(x,y,z) = \frac{\omega}{|\nabla g(x,y,z)|}
+\end{equation}
+注意$v^{(p)}$并非矢量，且会随位置变化(平面波的相速度不变)。实际上相速度并不能直接测量，也没有直接的物理意义。
+\par 真实的波总是有一定带宽，也不会在无限的空间上延伸。因而，考虑一个中心为$\bar{\omega}$、带宽为$\Delta \omega$的波包:
+\begin{equation}
+    \textup{V}(x,y,z,t)=\int_{\bar{\omega}, \ \Delta \omega} \textup{a}(x,y,z,\omega)\exp \{-i[\omega t -g(x,y,z,\omega)]\}\textup{d}\omega
+\end{equation}
+选取z-平面波作为叠加的基元($\textup{a}=\textup{a}(\omega), \ g=kz$)。把被积函数中的中心频率提出来:
+\begin{equation}
+    \textup{V}(z,t)=\textup{A}(z,t)\exp \{-i[\bar{\omega} t -\bar{k}z]\} \ \ \ \bar{k} = n(\bar{\omega})\frac{\bar{\omega}}{c}
+    \label{package}
+\end{equation}
+其中:
+\begin{equation}
+    \textup{A}(z,t)=\int_{\bar{\omega}, \ \Delta \omega} \textup{a}(\omega)\exp\{-i[(\omega-\bar{\omega})(t - \frac{k-\bar{k}}{\omega-\bar{\omega}})]\}   \textup{d}\omega
+\end{equation}
+注意到在\textbf{窄带}条件下比例项可用写成波数对角频率的微分。显然，该式中的指数项变化要远小于(\ref{package})的指数项($\Delta\omega<<\bar{\omega}$)，因而可以认为$\textup{A}(z,t)$是一个施加在以中心频率振荡的平面波上的一个\textbf{包络}。被其调制的波形也以一定速度运动，只需要另$\textup{A}(z,t)$中相位为0:
+\begin{equation}
+    t = \frac{k-\bar{k}}{\omega-\bar{\omega}} \to v^{(g)} = (\frac{\textup{d}\omega}{\textup{d}k})_{\bar{k}}
+\end{equation}
+这个速度即称为\textbf{群速度}。非色散介质中不同频率的光具有相同的色散关系，因而导数和比例相同，但在色散介质中其群速度将别于相速度。
+
+\section*{边沿处的电磁场}
+从(\ref{Maxwell})的积分表达式出发，选取介质交界处薄薄的一层作为积分范围，不难导出如下的\textbf{边界条件}:
+\begin{align}
+    &\textbf{n}_{12}\cdot(\textbf{B}^{(2)}-\textbf{B}^{(1)})=0 \\
+    &\textbf{n}_{12}\cdot(\textbf{D}^{(2)}-\textbf{D}^{(1)})=4\pi\hat{\rho} \\
+    &\textbf{n}_{12}\times(\textbf{E}^{(2)}-\textbf{E}^{(1)})=0 \\
+    &\textbf{n}_{12}\times(\textbf{H}^{(2)}-\textbf{H}^{(1)})=\frac{4\pi}{c}\hat{\textbf{j}}
+\end{align}
+前两个式子和后两个式子分别对应了法向和切向的连续性/突变性。不过，在导出折射定律时，只需要令电场和磁场都满足连续条件即可。再加上交界处相位步调一致的条件，我们即可一步步导出边界的电磁场行为。
+\subsection*{反射和折射定律}
+
 
 \end{document}
