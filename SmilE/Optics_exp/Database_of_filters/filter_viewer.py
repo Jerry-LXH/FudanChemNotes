@@ -9,7 +9,7 @@ from dealWithSpectrum import *
 ### Run with [streamlit run SmilE/Optics_exp/Database_of_filters/filter_viewer.py], use your own directory.
 
 step = 0.5
-db = FilterDatabaseSQLite("/Users/jerryling/Documents/Research/Department_of_chemistry/SmilE/Optics_exp/Database_of_filters/filters.db")
+db = FilterDatabaseSQLite("SmilE/Optics_exp/Database_of_filters/filters.db")
 
 # layout of page
 st.set_page_config(layout="wide")
