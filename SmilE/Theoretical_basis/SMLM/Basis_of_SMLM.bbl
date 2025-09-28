@@ -1,0 +1,18 @@
+\begin{thebibliography}{1}
+
+\bibitem{lelekSinglemoleculeLocalizationMicroscopy2021}
+M.~Lelek, M.~T. Gyparaki, G.~Beliu, F.~Schueder, J.~Griffi{\'e}, S.~Manley, R.~Jungmann, M.~Sauer, M.~Lakadamyali, and C.~Zimmer, ``Single-molecule localization microscopy,'' {\em Nature Reviews Methods Primers}, vol.~1, p.~39, June 2021.
+
+\bibitem{legantHighdensityThreedimensionalLocalization2016}
+W.~R. Legant, L.~Shao, J.~B. Grimm, T.~A. Brown, D.~E. Milkie, B.~B. Avants, L.~D. Lavis, and E.~Betzig, ``High-density three-dimensional localization microscopy across large volumes,'' {\em Nature Methods}, vol.~13, pp.~359--365, Apr. 2016.
+
+\bibitem{hyunDevelopmentDeepLearningBasedSingleMolecule2022}
+Y.~Hyun and D.~Kim, ``Development of {{Deep-Learning-Based Single-Molecule Localization Image Analysis}},'' {\em International Journal of Molecular Sciences}, vol.~23, p.~6896, Jan. 2022.
+
+\bibitem{betzigImagingIntracellularFluorescent2006}
+E.~Betzig, G.~H. Patterson, R.~Sougrat, O.~W. Lindwasser, S.~Olenych, J.~S. Bonifacino, M.~W. Davidson, J.~{Lippincott-Schwartz}, and H.~F. Hess, ``Imaging {{Intracellular Fluorescent Proteins}} at {{Nanometer Resolution}},'' {\em Science}, vol.~313, pp.~1642--1645, Sept. 2006.
+
+\bibitem{rustSubdiffractionlimitImagingStochastic2006}
+M.~J. Rust, M.~Bates, and X.~Zhuang, ``Sub-diffraction-limit imaging by stochastic optical reconstruction microscopy ({{STORM}}),'' {\em Nature Methods}, vol.~3, pp.~793--796, Oct. 2006.
+
+\end{thebibliography}
