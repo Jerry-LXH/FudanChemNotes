@@ -1,0 +1,157 @@
+\documentclass[12pt]{ctexart}%中文包
+\usepackage{graphicx}%图片引用包
+\usepackage{amssymb}%特殊符号
+\usepackage{amsmath,amsfonts,bm}%矩阵
+\usepackage{amsthm}%定理
+\usepackage{geometry}%缩放
+\usepackage{hyperref}%超链接
+\usepackage{framed}%框框
+\usepackage{color}%颜色
+\usepackage{mathrsfs}%花体
+\usepackage{anyfontsize}
+\usepackage{indentfirst}%缩进
+\usepackage{extsizes}%size
+\usepackage{newtxtext,newtxmath}%times风格字体
+\usepackage{mdframed}%边栏
+
+\surroundwithmdframed[
+  linecolor=gray,
+  topline=false,
+  bottomline=false,
+  rightline=false,
+  linewidth=4pt,
+  innerleftmargin=10pt,
+  innerrightmargin=10pt,
+  innertopmargin=0pt,
+  innerbottommargin=10pt
+]{theorem}
+\surroundwithmdframed[
+    linecolor=black,
+    leftline=false,
+    rightline=false,
+    linewidth=0.5pt,
+    innerleftmargin=10pt,
+    innerrightmargin=10pt,
+    innertopmargin=0pt,
+    innerbottommargin=10pt
+]{note}
+
+\newtheorem{theorem}{Law}
+\newtheorem{note}{Note}
+
+
+
+\geometry{a4paper,scale=0.85}
+\hypersetup
+    {
+        hypertex=true,
+        colorlinks=true,
+        linkcolor=blue,
+        anchorcolor=blue,
+        citecolor=blue
+    }
+
+
+\title{TE2000U 基本使用笔记}
+
+\author{Jerry Ling} 
+
+\date{\today}
+ 
+\begin{document}
+\maketitle
+A1043有两台科研级的尼康倒置显微镜，进门右手边(TE2000U)是组里最常用的荧光TIRF（全内反射）配置，示意图如下。本笔记针对A1043的\textbf{一般使用者}，包括基本成像光路、如何正确地上样测试和日常维护，以避免初用者踩坑，并让仪器维持一个可持续的状态。目前更换光纤、调整光路、更换(不是切换)二相色镜/滤镜、更换双通道都需要授权进行，如有需要可联系张老师学习操作，有关文档另作整理。关于光学间本身和进入前后的注意事项，参考\textit{Clean Room Basics \& Rules}和\textit{Clean Room Checklist}。
+
+
+
+\section*{光路描述和原理}
+\subsection*{激发光路}
+\begin{itemize}
+    \item 耦合进光纤的激光(B1)经过\textbf{光纤准直器(Fiber Collimator)} (图\ref{collimator})变成一束较小的平行光(其调节方法见另一篇笔记)。
+    \item 而后经过一组由两个透镜构成的\textbf{telescope型扩束器}，扩束为更大直径的准直光。第一面凹透镜负责扩大光斑，第二面凸透镜负责将其转化为平行光，因而两片透镜间距须恰好为焦距之差(即凸透镜焦点恰好落在凹透镜焦点上)。两个透镜可通过其笼架上的旋钮微调x-y位置，使得光线垂直地通过其轴心，否则将影响后续光路(请勿随意调整)。
+    \item 经过telescope扩束器的光束即随距离尺寸几乎不变的平行光。这样再经过一面较长焦距的透镜(400mm，即图\ref{optics}中的49639 INK)、被\textbf{二相色镜(dichroic mirror)}反射后即可将激光较好地汇聚在物镜的\textbf{后焦面(Back Focal Plane)}上(图\ref{optics}中B2)。
+\end{itemize}
+
+\begin{figure}[h] 
+    \centering
+    \includegraphics[width=0.6\textwidth]{fiber-collimators.png}
+    \caption{光纤准直器}
+    \label{collimator}
+\end{figure}
+
+\subsection*{物镜后焦面事件}
+\begin{itemize}
+    \item 后焦面上聚焦的激光经过物镜变成平行光对样本进行照明。当聚焦点在后焦面正中心时，出射光亦在正中心垂直出射，称为\textbf{落射照明(epi-illuminance)}。此时在物镜口可看到对称分布的一圈圈的圆光斑。
+    \item 若后焦面上汇聚的点不在中心，那么出射光将按一个角度照亮样品；当角度大于介质-样品界面的临界角时，发生\textbf{全内反射(TIRF)}，反射光(即图\ref{optics}中返回的红线)重新聚焦在后焦面对称的位置。
+    \item 可以通过调整telescope中的凸透镜(见图中所示)的旋钮来控制入射点的位置(本质上是控制光线的角度)。由于左右方向比较稳定，建议只调整上下方向来控制TIRF。可以观察物镜出口光斑位置来判断是否发生TIRF，当光斑大部分“潜入”物镜即可认为样品由倏逝波照明，即照明强度随z轴指数衰减。请勿随意调整其他的旋钮。
+\end{itemize}
+
+\begin{figure}[h] 
+    \centering
+    \includegraphics[width=0.9\textwidth]{Microscope_fig.jpeg}
+    \caption{TE2000U光路图}
+    \label{optics}
+\end{figure}
+
+\subsection*{出射光路}
+\begin{itemize}
+    \item 出射光中包含样品发出的荧光、入射光被反射后形成的反射光、入射光与样品作用后发出的散射光。后两类一般会被二相色镜和\textbf{出射滤镜(emission filter)}去除，只透过前者以观察荧光。(二相色镜对不同波长的光有选择性地反射/透射)
+    \item 出射光重新经过物镜，则物镜前焦面上点源发出的光变成平行光；而在物镜后焦面(B2)处恰成一个\textbf{fourier变换像}，因而这个面也被称为\textbf{fourier面}(换言之，这个面上的光场分布恰是焦面上光场分布的fourier变换)。为观察之，可在像面后一个焦距的位置用一个伯特兰透镜(Bertrand Lens)对像再进行一次fourier变换(图\ref{optics}中左下角，BFP Imaging Setup)。
+    \item 平行光穿过二相色镜后再经过一个\textbf{镜筒透镜(Tube Lens, 200nm)}被重新汇聚在\textbf{像面(Imaging Plane, A2)}上。这个像面一般在显微镜side port出口的几厘米左右。在此面上放置相机即可对焦面成像。
+    \item 出射光经过Tube lens后再经过反射镜转到侧口。显微镜右侧旋钮可以切换出射光光路到左侧或右侧port，注意须\textbf{拧到听到click声音}以切换。
+\end{itemize}
+
+\section*{搭建正确的激发光路(optional/了解即可)}
+\begin{enumerate}
+    \item 检查光纤耦合器出来的光斑是否对称，如果不对称则说明激光不准直，可按另一篇笔记内容小心调整xy旋钮。
+    \item telescope的两个镜子首先要准直地放大光斑。应看到对称的光斑、且光斑大小应随距离变化不大。这样说明两面镜子与激光同轴且间距正确。
+    \item focusing lens首先需要与前面的部件共轴。然后可通过\textbf{笼式系统(cage system)}调整其位置以将激发光汇聚到物镜后焦面。
+    \item 当4面透镜都同轴且放置在正确的距离上时，即达成落射照明后，方可按照前述方法调整到TIRF照明。
+    \item 由于物镜后焦面基本上与Tube lens前焦面重合，后焦面发出的光像面(A2)处可看作平行光，因而再放一个凸透镜即可对后焦面成像。当发生TIRF时候，反射光应在圆形后焦面的边缘处。
+\end{enumerate}
+
+\par 整体的调整思路是：先保证落射照明(epi，平行光激发)、再达成TIRF。改变角度更好的方法是整体移动excitation部分，而非调整一面镜子的位置(这可能会让光线倾斜过多而损失一些光)。一旦调整到较好状态，尽量不要去调整telescope的位置以避免偏轴等复杂问题。
+
+\section*{正确的上样和日常使用规范}
+日常测试过程中，需要注意显微镜使用规范和日常维护，以确保测到有意义的数据以及仪器的可持续使用：
+
+\subsection*{光路}
+\begin{itemize}
+    \item 如需使用显微镜，在确保相机安装正确、未有暴露机械快门的情况下，打开相机电源。打开计算机上的控制软件(Solis, software for Andor EMCCD)。EMCCD需要冷却至-70度来降低噪声，请务必等候约5分钟至左下角温度指示色块\textbf{由红变蓝}，再开始采集数据。关于相机的使用和控制软件细节使用请参见另一篇笔记。
+    \item 光纤需要拧好，不要过松或过紧(finger tight)。更换光纤需要通知老师学习，详请参考另一篇笔记。
+    \item 检查是否使用了1.5x增距镜。
+    \item 进光前\textbf{检查二相色镜}是否正确(须在出射光路中滤掉激发光)。切换时候需注意听到click声音代表切换成功。否则，使用错误的二向色镜采集图像时极有可能会过曝严重，此时须\textbf{立刻关闭采集}以保护相机。更换二相色镜，需要通知老师学习，详请参考另一篇笔记和视频。
+    \item 调整光斑达成TIRF的过程中避免不必要的调整(见上文)。此外，请注意避免对激发光路施加机械冲击以防止光路歪轴，比如身体不要依靠或者撞击光学平台；不要在黑暗中快速移动肢体。
+    \item 眼睛\textbf{不可直视激光}。眼睛与光路不可处于同一水平高度。可代用档光片或纸片观察激光光斑是否正常。尤其注意近红外波段的激光不可见但仍会造成眼部永久损伤，应格外当心。调整光路时务必使用合适的\textbf{防护眼镜}。
+    \item 如需更换物镜，请务必确保其下降到安全高度，否则将刮伤物镜。
+\end{itemize}
+
+\subsection*{上样}
+\begin{itemize}
+    \item 上样前请务必确保物镜下降到安全的高度，以避免碰伤物镜。下降过程请避免使用粗调旋钮，使用微调knob的时候请务必耐心慢慢旋转，避免内部齿轮磨损。上油要\textbf{避免气泡}，更不要摔落镜油瓶。如油瓶中气泡很多，需要degas。气泡将带来明显的衍射条纹、并随着样品台移动变化。可尝试移动样品台来赶走气泡。
+    \item 上样的板子不能过长或过短，以免不对称(翘起)或掉落样品架。coverglass 务必使用24*30或24*32 \#1.5（H），并且组装在25*75 slide正中央。24*40一定无法使用，24*50或者24*60在对称组装下可以使用。如果严重偏离对称，或者coverglass刚好长40mm与样品架开口（40mm）一样大小将导致样品无法正确安装。
+    \item 尽量避免于样品安装在样品架上时进行injection（向channel内注射以孵育或清洗），以防溶液与镜油混合而导致无法正常成像。
+    \item 确保双面胶（3M）\textbf{压平密封}。若其明显发白，说明溶液有渗漏，最好重新制样以避免无效数据或溶液漏进镜油。
+    \item 找焦面不可大幅调整高度，否则有可能撞伤物镜。若发现高度过头可重新调低找焦。
+    \item 水平调整样品台时切不可幅度过大，否则其边沿可能撞到物镜。找焦或者换channel时要注意出射激光走向，建议挡住激光再靠近观察。
+\end{itemize}
+
+\subsection*{维护}
+\begin{itemize}
+    \item 实验结束记得关闭软件、相机和激光器。先关闭solis软件，再关闭相机电源。软件非正常关闭，或者顺序颠倒将导致相机再次启动时setup参数丢失，或进入multitrack光谱采集模式。激光器关闭一般遵循：先关电流，然后等若干分钟再关电源的流程。做细胞实验的同学记得关闭明场照明的卤素灯电源。
+    \item 光纤脆弱，不可用力拉拽。注意光纤收纳的最小半径（一般>=10cm），过小半径将损坏光纤。
+    \item 物镜上的油须擦净。外圈的油可用纸巾(Kimwipe)\textbf{吸走}，而不宜大范围地涂抹。玻璃的部份则必须使用\textbf{擦镜纸}以避免纤维划伤表面，可用止血钳夹住一截对折数次的擦镜纸转圈擦拭，注意擦过一次后要换到清洁的部份再擦，以及止血钳金属的部份不要刮到物镜。确保擦完后玻璃\textbf{表面光亮无油渍}，若有油渍残留会造成折射率不均而劣化成像，照明光斑也会形态异常。
+    \item 避免过量加油，多次加油后必须吸掉重加。吸油，擦油时务必小心，动作幅度不要过大过快，以免将油挤出物镜储油槽，或者溅射到物镜以外，如位移台，转盘等关键部位。绝不可让油满溢到物镜壁上，因为油会损害下游部件。若已流出，立刻擦掉；若已流到螺口则需要通知老师处理。
+    \item 结束后记得在记录本上登记本次实验。
+\end{itemize}
+
+\section*{待办}
+\begin{itemize}
+    \item 相机使用规范
+    \item 更换滤镜/二相色镜方法规范
+    \item 光纤更换和调整方法规范
+    \item 双通道测试
+    \item 增加一些图片：光路、Filter Cube、软件界面、调tirf图片、光斑图片
+\end{itemize}
+
+\end{document}

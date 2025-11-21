@@ -13,7 +13,7 @@ db = FilterDatabaseSQLite("SmilE/Optics_exp/Database_of_filters/filters.db")
 
 # layout of page
 st.set_page_config(layout="wide")
-st.title("Browser of Filter Database")
+st.title("Browser of SMILe Filter Database")
 
 # Seraching
 keyword = st.text_input("Search for Filters: (name/type/manufacturer/notes)", "")
